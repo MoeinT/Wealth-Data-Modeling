@@ -8,6 +8,8 @@ authors = ["Moein"]
 python = "^3.10"
 pandas = "^2.0.3"
 psycopg2 = "^2.9.6"
+black = "^23.7.0"
+isort = "^5.12.0"
 
 [tool.poetry.dev-dependencies]
 
