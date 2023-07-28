@@ -7,7 +7,7 @@ on:
 jobs:
   python-lint:
     runs-on: ubuntu-latest
-    name: Pythin Lint
+    name: Python Lint
     steps:
     
     - name: checkout source repo
@@ -22,7 +22,7 @@ jobs:
       uses: abatilo/actions-poetry@v2.0.0
     
     - name: Installing poetry
-      run: poetry install
+      run: pip install --upgrade poetry
 
     - name: Checking formatting
       run: poetry run black . --check --diff
