@@ -7,7 +7,7 @@ on:
 jobs:
   python-lint:
     runs-on: ubuntu-latest
-    name: CI workflow
+    name: Pythin Lint
     steps:
     
     - name: checkout source repo
