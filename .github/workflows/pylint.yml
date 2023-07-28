@@ -18,11 +18,14 @@ jobs:
       with:
         python-version: '3.10.x'
     
+    - name: upgrading poetry
+      run: pip install --upgrade poetry
+    
     - name: Setting up poetry
       uses: abatilo/actions-poetry@v2.0.0
     
-    - name: Installing poetry
-      run: pip install --upgrade poetry
+    - name: installing poetry
+      run: poetry install
 
     - name: Checking formatting
       run: poetry run black . --check --diff
