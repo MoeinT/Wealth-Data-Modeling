@@ -10,7 +10,7 @@ __pycache__/
 config.ini
 
 # Ignore the poetry lock file
-*.lock
+# *.lock
 
 # Distribution / packaging
 .Python
