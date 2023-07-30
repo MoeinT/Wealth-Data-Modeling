@@ -22,7 +22,9 @@ jobs:
       run: pip install --upgrade poetry
     
     - name: Setting up poetry
-      uses: abatilo/actions-poetry@v2.0.0
+      uses: abatilo/actions-poetry@v2
+      with:
+          poetry-version: '1.5.1'
     
     - name: installing poetry
       run: poetry install
