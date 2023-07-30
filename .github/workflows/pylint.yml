@@ -27,9 +27,7 @@ jobs:
           poetry-version: '1.5.1'
     
     - name: installing poetry
-      run: |
-        poetry install
-        source "$(poetry env info --path)/bin/activate"
+      run: poetry install
 
     - name: Checking formatting
       run: poetry run black . --check --diff
