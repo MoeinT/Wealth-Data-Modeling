@@ -238,18 +238,17 @@ class WealthDataProcessor:
             table_name (str): The name of the table to write the DataFrame.
 
         """
-        # Convert the DataFrame to pandas
-        df_pandas = df.toPandas()
 
-        # Construct the database URL
-        db_url = f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
+        url = f"jdbc:postgresql://{self.db_host}:{self.db_port}/{self.db_name}"
 
-        # Write the pandas DataFrame to the PostgreSQL database
-        df_pandas.to_sql(
-            table_name,
-            con=sqlalchemy.create_engine(db_url),
-            if_exists="append",
-            index=False,
+        (
+            df.write.format("jdbc")
+            .option("url", url)
+            .option("dbtable", table_name)
+            .option("user", self.db_user)
+            .option("password", self.db_password)
+            .mode("append")
+            .save()
         )
 
 
@@ -276,8 +275,8 @@ if __name__ == "__main__":
 
     # Drop tables
     connector.execute_query(f"DROP TABLE IF EXISTS account_country CASCADE")
-    connector.execute_query(f"DROP TABLE IF EXISTS account_data")
-    connector.execute_query(f"DROP TABLE IF EXISTS account_series")
+    connector.execute_query(f"DROP TABLE IF EXISTS account_data CASCADE")
+    connector.execute_query(f"DROP TABLE IF EXISTS account_series CASCADE")
 
     # Creating the account country table
     account_country_columns = [
@@ -381,8 +380,10 @@ if __name__ == "__main__":
         db_name="moeindb",
     )
 
-    # Writing the enriched data to Postresql
+    # Getting the enriched data
     df_account_data, df_account_series, df_account_country = obj.process_data()
+
+    # Writing the enriched data to Postresql
     obj.write_to_postgres(df=df_account_series, table_name="account_series")
     obj.write_to_postgres(df=df_account_country, table_name="account_country")
     obj.write_to_postgres(df=df_account_data, table_name="account_data")

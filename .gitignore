@@ -9,8 +9,8 @@ __pycache__/
 # Credentials
 config.ini
 
-# Ignore the poetry lock file
-# *.lock
+# Ignore notebooks
+*.ipynb
 
 # Distribution / packaging
 .Python
