@@ -17,7 +17,7 @@ Our fact table, **Wealth-AccountData.csv**, will be complemented by two dimensio
 </p>
 
 ## Technology Stack
-To accomplish our data modeling journey, we will leverage the power of Python, PySpark, and PostgreSQL. Python provides us with a versatile and intuitive programming language, while PySpark empowers us to process large-scale data efficiently. PostgreSQL, a robust relational database management system, will be our storage solution to persist our modeled data.
+To accomplish our data modeling journey, we will leverage the power of Python, PySpark, PostgreSQL, and Docker. Python provides us with a versatile and intuitive programming language, while PySpark empowers us to process large-scale data efficiently. PostgreSQL, a robust relational database management system, will be our storage solution to persist our modeled data. Docker, a containerization platform, will help us run PostgreSQL as a containerized service.
 
 ## Database and Environment Setup
 Before we dive into the data modeling process, let's ensure we have everything set up correctly to run the code smoothly.
@@ -32,9 +32,22 @@ Before we dive into the data modeling process, let's ensure we have everything s
 
 5. Install the required Python packages using Poetry. This will install all the necessary dependencies for the project.
 
-6. Set up a PostgreSQL database on your local machine with appropriate credentials (username, password).
+6. Set up a PostgreSQL database as a Docker container on your local machine.
 
-7. Configure the database connection details in the config.ini file.
+  - Run the following command to download and run the PostgreSQL container:
+
+```
+docker run --name mypostgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+```
+  - Note: If you have another PostgreSQL server running on your local machine and using the default 5432 port, you can use a different port for the container, e.g., -p 5433:5432.
+
+
+7. Once the PostgreSQL container is running, use the following commands to interact with it:
+
+```
+docker exec -it <container_id> bash
+psql -U postgres -W
+```
 
 ## Code Overview
 This section will provide an overview of the main components of the codebase.

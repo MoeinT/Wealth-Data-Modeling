@@ -9,7 +9,9 @@ from pyspark.sql import functions as F
 
 
 class PostgreSQLConnector:
-    def __init__(self, user: str, password: str, host="localhost", port="5432"):
+    def __init__(
+        self, user: str, password: str, host: str = "localhost", port: int = 5432
+    ):
         self.user = user
         self.password = password
         self.host = host
@@ -120,13 +122,13 @@ class WealthDataProcessor:
         spark: SparkSession,
         db_user: str,
         db_password: str,
-        db_host: str,
-        db_port: str,
         db_name: str,
         options: dict = None,
         data_file: str = None,
         series_file: str = None,
         country_file: str = None,
+        db_port: int = 5432,
+        db_host: str = "localhost",
     ):
         self.spark = spark
         self.options = options if options else {"header": "true", "inferSchema": "true"}
@@ -260,18 +262,18 @@ if __name__ == "__main__":
     user = config["postgresql"]["user"]
     password = config["postgresql"]["password"]
     dbname = config["postgresql"]["dbname"]
-    port = 5432
+    port = 5433
 
     # Pass in the credentials and create a connection to the default db
-    connector = PostgreSQLConnector(user=user, password=password)
+    connector = PostgreSQLConnector(user=user, password=password, port=port)
 
     # Create new databases
-    for db_name in ["moeindb"]:
+    for db_name in ["moeindbdocker"]:
         if not connector.check_database_exists(db_name=db_name):
             connector.execute_query(query=f"CREATE DATABASE {db_name}")
 
     # Switch the connection to a desired database
-    connector.switch_database(new_dbname="moeindb")
+    connector.switch_database(new_dbname="moeindbdocker")
 
     # Drop tables
     connector.execute_query(f"DROP TABLE IF EXISTS account_country CASCADE")
@@ -375,9 +377,8 @@ if __name__ == "__main__":
         spark=spark,
         db_user=config["postgresql"]["user"],
         db_password=config["postgresql"]["password"],
-        db_host="localhost",
-        db_port="5432",
-        db_name="moeindb",
+        db_port=port,
+        db_name="moeindbdocker",
     )
 
     # Getting the enriched data
