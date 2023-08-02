@@ -275,8 +275,8 @@ if __name__ == "__main__":
 
     # Drop tables
     connector.execute_query(f"DROP TABLE IF EXISTS account_country CASCADE")
-    connector.execute_query(f"DROP TABLE IF EXISTS account_data CASCADE")
     connector.execute_query(f"DROP TABLE IF EXISTS account_series CASCADE")
+    connector.execute_query(f"DROP TABLE IF EXISTS account_data CASCADE")
 
     # Creating the account country table
     account_country_columns = [
