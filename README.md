@@ -1,4 +1,4 @@
-# Data Modeling for Wealth Data using PySpark and PostgreSQL
+# Data Modeling for Wealth Data using PySpark, PostgreSQL and Docker
 Welcome to the repository for data modeling using Python and PySpark! This documentation will guide you through the components of this project and how to set up your environment to work with the codebase.
 
 ## Introduction
