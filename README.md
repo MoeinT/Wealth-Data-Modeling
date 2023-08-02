@@ -23,17 +23,11 @@ To accomplish our data modeling journey, we will leverage the power of Python, P
 Before we dive into the data modeling process, let's ensure we have everything set up correctly to run the code smoothly.
 
 1. Make sure you have Python 3.11 installed on your system.
-
 2. Install Poetry (a Python package manager) version 1.5.1.
-
 3. Clone the repository to your local machine.
-
 4. Create a virtual environment (optional but recommended).
-
 5. Install the required Python packages using Poetry. This will install all the necessary dependencies for the project.
-
 6. Set up a PostgreSQL database as a Docker container on your local machine.
-
   - Run the following command to download and run the PostgreSQL container:
 
 ```
@@ -41,11 +35,13 @@ docker run --name mypostgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postg
 ```
   - Note: If you have another PostgreSQL server running on your local machine and using the default 5432 port, you can use a different port for the container, e.g., -p 5433:5432.
 
-
 7. Once the PostgreSQL container is running, use the following commands to interact with it:
 
 ```
 docker exec -it <container_id> bash
+```
+
+```
 psql -U postgres -W
 ```
 
@@ -57,15 +53,10 @@ The PostgreSQLConnector class handles the connection to the PostgreSQL database.
 
 **Methods**
 - connect: Establishes a connection to the PostgreSQL database and creates a cursor. The method sets autocommit to True to avoid transactions for specific operations.
-
 - execute_query: Executes an SQL query on the PostgreSQL database.
-
 - check_database_exists: Checks if the specified database exists.
-
 - switch_database: Switches the connection to any other database
-
 - create_table: Creates table within the connected database
-
 - close: Closes the connection to the PostgreSQL database and the associated cursor.
 
 ### WealthDataProcessor
@@ -73,11 +64,8 @@ The WealthDataProcessor class is responsible for processing the wealth data and 
 
 **Methods:**
 - clean_cols: Cleans the column names of a DataFrame to make them database-friendly.
-
 - read_tables: Reads data from CSV files into DataFrames.
-
 - process_data: Processes the loaded data, including cleaning column names, dropping null values, and adding a unique identifier to the fact table.
-
 - write_to_postgres: Writes a DataFrame to a PostgreSQL table.
 
 Note: The methods are documented with their input parameters and return types for better understanding and usage.
@@ -95,17 +83,11 @@ This job runs on an **ubuntu-latest** runner and is responsible for checking the
 
 Steps:
 1. checkout source repo: Checks out the source repository to the runner.
-
 2. Setting up Python: Sets up the specified Python version.
-
 3. Upgrading poetry: Upgrades the Poetry package manager to version 1.5.1.
-
 4. Setting up poetry: Sets up Poetry for the project using the specified version.
-
 5. Installing poetry: Installs the project dependencies using Poetry.
-
 6. Checking formatting: Runs the black tool to check the code formatting without making changes.
-
 7. Checking imports: Runs the isort tool to check the import order without making changes.
 
 ## Conclusion
